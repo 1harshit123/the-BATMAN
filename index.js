@@ -1,4 +1,8 @@
-gsap.registerPlugin(SplitText);
+gsap.registerPlugin(SplitText, ScrollTrigger);
+
+// ------------------------------
+// TEXT SCRAMBLE LOGIC (Your Code)
+// ------------------------------
 
 const animatableTextHeading = document.querySelector(".video-text h1");
 const animatableTextPara = document.querySelector(".video-text p");
@@ -11,7 +15,7 @@ function implementionAnimation() {
         "I am BATMAN"
     ];
 
-    const DELAY = 5000; // 9 seconds each message
+    const DELAY = 5000;
 
     function cycleText(index) {
         const text = changingText[index];
@@ -19,20 +23,18 @@ function implementionAnimation() {
         scrambleText(animatableTextHeading, text, 2);
         scrambleText(animatableTextPara, text, 2.5);
 
-        // Schedule next text
         setTimeout(() => {
             cycleText((index + 1) % changingText.length);
         }, DELAY);
     }
 
-    cycleText(0); // Start animation
+    cycleText(0);
 }
 
 function scrambleText(element, newText, duration) {
     const chars = "!<>-_\\/[]{}—=+*^?#________";
     const originalText = element.innerText;
     const length = Math.max(originalText.length, newText.length);
-
     let obj = { progress: 0 };
 
     gsap.fromTo(obj, { progress: 0 }, {
@@ -53,4 +55,23 @@ function scrambleText(element, newText, duration) {
     });
 }
 
+// ------------------------------
+// HORIZONTAL SCROLL IMPLEMENTATION
+// ------------------------------
+
+const sections = gsap.utils.toArray(".video-section");
+
+gsap.to(sections, {
+    xPercent: -100 * (sections.length - 1),
+    ease: "none",
+    scrollTrigger: {
+        trigger: ".horizontal-wrapper",
+        pin: true,
+        scrub: 1,
+        snap: 1 / (sections.length - 1),
+        end: () => "+=" + document.querySelector(".horizontal-wrapper").offsetWidth
+    }
+});
+
 implementionAnimation();
+

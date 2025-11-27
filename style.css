@@ -1,19 +1,19 @@
 body {
     margin: 0;
-    height: 100vh;
     background: radial-gradient(circle at center, #0a0a0a 0%, #000000 70%, #010101 100%);
-    overflow: hidden;
     font-family: 'Bebas Neue', sans-serif;
     color: #FFD700;
-    display: flex;
-    flex-direction: column;
+
 }
 
 nav {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
+    position: fixed;
+        /* ADDED */
+    width: 100%;
+        /* ADDED */
+    top: 0;
+        /* ADDED */
+    z-index: 2000;
 }
 
 .nav-wrapper {
@@ -81,32 +81,32 @@ nav {
     overflow: hidden;
 }
 
-/* Video fits the whole background */
+.horizontal-wrapper {
+    display: flex;
+    width: 200vw;
+    /* because you have 2 sections */
+    height: 100vh;
+    overflow: hidden;
+}
+
+.video-section {
+    width: 100vw;
+    height: 100vh;
+    flex-shrink: 0;
+    position: relative;
+}
+
 .video-section video {
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    z-index: 1;
 }
 
-/* Text on top of video */
 .video-text {
     position: absolute;
-    width: 110%;
     top: 50%;
-    left: 70%;
+    left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 2;
-
-    color: white;
+    color: yellow;
     text-align: center;
-    font-family: "Batman", sans-serif;
-    /* optional */
-}
-
-.video-text h1{
-    font-size: 70px;
 }
