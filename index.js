@@ -1,32 +1,56 @@
 gsap.registerPlugin(SplitText);
 
-// Select the audio element
-const sound = document.querySelector("#key-sound");
+const animatableTextHeading = document.querySelector(".video-text h1");
+const animatableTextPara = document.querySelector(".video-text p");
 
-// Helper function to play sound (Cloning allows overlapping sounds for fast typing)
-function playClick() {
-    if (sound) {
-        let click = sound.cloneNode(); // Clone so multiple sounds can play at once
-        click.volume = 0.5; // Adjust volume (0.0 to 1.0)
-        click.play().catch(e => console.log("User must interact with page first"));
+function implementionAnimation() {
+    const changingText = [
+        "I am Vengeance",
+        "Why do we fall sir?",
+        "You think darkness is your ally",
+        "I am BATMAN"
+    ];
+
+    const DELAY = 5000; // 9 seconds each message
+
+    function cycleText(index) {
+        const text = changingText[index];
+
+        scrambleText(animatableTextHeading, text, 2);
+        scrambleText(animatableTextPara, text, 2.5);
+
+        // Schedule next text
+        setTimeout(() => {
+            cycleText((index + 1) % changingText.length);
+        }, DELAY);
     }
+
+    cycleText(0); // Start animation
 }
 
-let split = SplitText.create(".video-text", { type: "chars" });
+function scrambleText(element, newText, duration) {
+    const chars = "!<>-_\\/[]{}—=+*^?#________";
+    const originalText = element.innerText;
+    const length = Math.max(originalText.length, newText.length);
 
-// Iterate through each character to attach the specific sound trigger
-split.chars.forEach((char, index) => {
-    gsap.from(char, {
-        duration: 1,
-        rotateX: 180,       // Starts Upside Down (Inverted)
-        opacity: 0,
-        transformOrigin: "center center", // Ensures it flips exactly on its axis
-        delay: index * 0.05, // Manual stagger: index * time
-        ease: "back.out(1.7)", // A little 'overshoot' makes it feel mechanical/heavy
-        onStart: () => {
-            playClick(); // Triggers sound exactly when this letter appears
+    let obj = { progress: 0 };
+
+    gsap.fromTo(obj, { progress: 0 }, {
+        progress: 1,
+        duration,
+        ease: "power2.out",
+        onUpdate: () => {
+            let output = "";
+            for (let i = 0; i < length; i++) {
+                if (i < obj.progress * length) {
+                    output += newText[i] || "";
+                } else {
+                    output += chars[Math.floor(Math.random() * chars.length)];
+                }
+            }
+            element.innerText = output;
         }
     });
-});
+}
 
-// opacity, duration, delay, stagger
+implementionAnimation();
