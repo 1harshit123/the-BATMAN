@@ -1,54 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>the BATMAN</title>
+    <title>Hny — Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Display face: condensed/industrial, echoes the cowl's hard edges. Body: clean, legible. -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <nav>
-        <div class="nav-wrapper">
-        <ul>
-            <li>Robin</li>
-            <li>Nightwing</li>
-            <li>My BATGIRL</li>
-            <li>Alfred the legend</li>
-        </ul>
-        </div>
-    </nav>
-    <div class="scroll-overlay">
 
-    </div>
-    <div class="horizontal-wrapper">
-    <section class="video-section">
-        <video autoplay muted loop playsinline>
-            <source src="batmanvid.mp4" type="video/mp4">
-        </video>
-        <div class="video-text">
-            <h1>Welcome to Gotham</h1>
-            <p>The night is darkest before the dawn.</p>
-        </div>
-    </section>
+    <!-- ============ FIXED VIDEO BACKGROUND ============ -->
+    <video class="video-bg" autoplay muted loop playsinline poster="assets/redBATMAN-poster.jpg">
+        <source src="redBATMAN.mp4" type="video/mp4">
+    </video>
+    <div class="overlay" id="overlay"></div>
+    <div class="grain"></div>
 
-    <section class="video-section">
-        <video autoplay muted loop playsinline>
-            <source src="batman2.mp4" type="video/mp4">
-        </video>
-        <div class="video-text">
-            <h1>I AM VENGEANCE</h1>
-            <p>Fear is a tool.</p>
-        </div>
-    </section>
-</div>
+    <!-- ============ NAVBAR ============ -->
+    <header class="navbar">
+        <a href="#hero" class="nav-logo">HNY</a>
+        <nav class="nav-links">
+            <a href="#about" data-nav="01">About</a>
+            <a href="#projects" data-nav="02">Projects</a>
+            <a href="#activities" data-nav="03">Activities</a>
+            <a href="#contact" data-nav="04">Contact</a>
+        </nav>
+        <button class="nav-toggle" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </header>
 
+    <main>
 
+        <!-- ============ PAGE 1 — HERO ============ -->
+        <section id="hero" class="page page-hero" data-overlay="0" data-blur="0">
+            <div class="hero-content">
+                <p class="hero-quote" id="hero-quote">
+                    <!-- filled by index.js with a random quote -->
+                </p>
+            </div>
+            <div class="scroll-cue">
+                <span class="scroll-label">Scroll</span>
+                <svg class="scroll-arrow" width="18" height="28" viewBox="0 0 18 28" fill="none">
+                    <path d="M9 0V26M9 26L2 19M9 26L16 19" stroke="currentColor" stroke-width="1.5" />
+                </svg>
+            </div>
+        </section>
 
+        <!-- ============ PAGE 2 — ABOUT ============ -->
+        <section id="about" class="page page-about" data-overlay="0.45" data-blur="3">
+            <span class="page-eyebrow">01 — Who</span>
+            <h2 class="page-title">Hny</h2>
+            <div class="about-grid">
+                <div class="about-block">
+                    <h3>Education</h3>
+                    <p>B.Sc. Computer Science</p>
+                    <p class="muted">College name · Year · Location</p>
+                </div>
+                <div class="about-block">
+                    <h3>Focus</h3>
+                    <p>Full-stack development, AI-powered tools, and interfaces that don't feel templated.</p>
+                </div>
+                <div class="about-block">
+                    <h3>Currently</h3>
+                    <p>Building RepoRAG — an AI-powered codebase analysis tool.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ PAGE 3 — PROJECTS ============ -->
+        <section id="projects" class="page page-projects" data-overlay="0.6" data-blur="5">
+            <span class="page-eyebrow">02 — Work</span>
+            <h2 class="page-title">Projects</h2>
+            <div class="project-list">
+
+                <article class="project-card">
+                    <span class="project-index">01</span>
+                    <div class="project-info">
+                        <h3>RepoRAG</h3>
+                        <p>AI-powered codebase analysis tool — React, FastAPI, ChromaDB, Gemini.</p>
+                        <div class="project-tags">
+                            <span>React</span><span>FastAPI</span><span>ChromaDB</span><span>Gemini</span>
+                        </div>
+                    </div>
+                    <a href="#" class="project-link" aria-label="View RepoRAG">↗</a>
+                </article>
+
+                <article class="project-card">
+                    <span class="project-index">02</span>
+                    <div class="project-info">
+                        <h3>Project Two</h3>
+                        <p>Short description of the project goes here.</p>
+                        <div class="project-tags">
+                            <span>Tag</span><span>Tag</span>
+                        </div>
+                    </div>
+                    <a href="#" class="project-link" aria-label="View project">↗</a>
+                </article>
+
+                <article class="project-card">
+                    <span class="project-index">03</span>
+                    <div class="project-info">
+                        <h3>Project Three</h3>
+                        <p>Short description of the project goes here.</p>
+                        <div class="project-tags">
+                            <span>Tag</span><span>Tag</span>
+                        </div>
+                    </div>
+                    <a href="#" class="project-link" aria-label="View project">↗</a>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- ============ PAGE 4 — ACTIVITIES / HOBBIES ============ -->
+        <section id="activities" class="page page-activities" data-overlay="0.7" data-blur="6">
+            <span class="page-eyebrow">03 — Beyond Code</span>
+            <h2 class="page-title">Activities &amp; Hobbies</h2>
+            <div class="activity-grid">
+                <div class="activity-card">
+                    <h3>Hobby One</h3>
+                    <p>Description goes here.</p>
+                </div>
+                <div class="activity-card">
+                    <h3>Hobby Two</h3>
+                    <p>Description goes here.</p>
+                </div>
+                <div class="activity-card">
+                    <h3>Hobby Three</h3>
+                    <p>Description goes here.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ PAGE 5 — CONTACT / SOCIALS ============ -->
+        <section id="contact" class="page page-contact" data-overlay="0.85" data-blur="10">
+            <span class="page-eyebrow">04 — Reach</span>
+            <h2 class="page-title">Let's talk</h2>
+            <p class="contact-sub">Open to opportunities, collaborations, and conversations.</p>
+            <div class="social-links">
+                <a href="mailto:you@example.com" class="social-link">Email</a>
+                <a href="https://github.com/" target="_blank" rel="noopener" class="social-link">GitHub</a>
+                <a href="https://linkedin.com/" target="_blank" rel="noopener" class="social-link">LinkedIn</a>
+                <a href="https://twitter.com/" target="_blank" rel="noopener" class="social-link">Twitter</a>
+            </div>
+            <p class="footer-note">© <span id="year"></span> Hny. Built with GSAP.</p>
+        </section>
+
+    </main>
 
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/SplitText.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
     <script src="index.js"></script>
 </body>
+
 </html>
