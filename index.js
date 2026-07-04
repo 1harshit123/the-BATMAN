@@ -4,7 +4,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 
-gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+gsap.registerPlugin(ScrollTrigger);
 
 /* ==========================================================================
    RANDOM HERO QUOTE
@@ -45,6 +45,7 @@ function initSmoothScroll() {
         duration: 1.2,
         smoothWheel: true,
         smoothTouch: false,
+        allowNestedScroll: true,
     });
 
     lenis.on("scroll", ScrollTrigger.update);
@@ -57,24 +58,161 @@ function initSmoothScroll() {
 }
 
 
-// pin shape when it reaches the center of the viewport, for 300px
-ScrollTrigger.create({
-    trigger: ".shape",
-    pin: true,
-    start: "center center",
-    end: "+=300"
+
+/* ==========================================================================
+   CURSOR ANIMATION
+   ========================================================================== */
+
+const cursor = document.querySelector('.cursor')
+const cursor_dot = document.querySelector('.cursor-dot')
+
+window.addEventListener('mousemove', (e)=>{
+    gsap.to(cursor, {
+        x: e.clientX,
+        y: e.clientY,
+        duration: 3.5,
+        ease: 'power4.out'
+
+    })
+
+    gsap.set(cursor_dot, {
+        x: e.clientX,
+        y: e.clientY
+    });
+})
+
+/* ==========================================================================
+   LAZY SCROLL
+   ========================================================================== */
+
+gsap.utils.toArray(".reveal").forEach(el => {
+
+    gsap.from(el, {
+        y: 80,
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out",
+
+        scrollTrigger: {
+            trigger: el,
+            start: "top 85%"
+        }
+    });
+
 });
 
-document.querySelector("button").addEventListener("click", (e) => {
-    // scroll to the spot where the shape is in the center.
-    // parameters: element, smooth, position
-    smoother.scrollTo(".shape", true, "center center");
+gsap.from(".page-about", {
 
-    // or you could animate the scrollTop:
-    // gsap.to(smoother, {
-    //  scrollTop: smoother.offset(".shape", "center center"),
-    //  duration: 1
-    // });
+    opacity: 0,
+
+    duration: 1.5,
+
+    scrollTrigger: {
+        trigger: ".page-about",
+        start: "top 75%"
+    }
+
+});
+
+/* ==========================================================================
+   LAZY SCROLL
+   ========================================================================== */
+
+
+
+
+
+gsap.from(".page-title", {
+
+    x: -80,
+
+    opacity: 0,
+
+    duration: 1,
+
+    scrollTrigger: {
+        trigger: ".page-title",
+        start: "top 80%"
+    }
+
+});
+
+gsap.from(".scroll-cue", {
+    opacity: 0,
+    y: 40,
+    delay: 1.5
+});
+
+gsap.from(".project-card", {
+
+    y: 100,
+    opacity: 0,
+
+    stagger: .15,
+
+    duration: 1,
+
+    scrollTrigger: {
+        trigger: ".project-list",
+        start: "top 75%"
+    }
+
+});
+
+
+const buttons = document.querySelectorAll(".btn");
+
+buttons.forEach(btn => {
+
+    btn.addEventListener("mousemove", (e) => {
+
+        const rect = btn.getBoundingClientRect();
+
+        gsap.to(btn, {
+            x: (e.clientX - rect.left - rect.width / 2) * 0.25,
+            y: (e.clientY - rect.top - rect.height / 2) * 0.25,
+            duration: .3
+        });
+
+    });
+
+    btn.addEventListener("mouseleave", () => {
+
+        gsap.to(btn, {
+            x: 0,
+            y: 0,
+            duration: .5
+        });
+
+    });
+
+});
+
+
+gsap.to(".video-bg", {
+
+    scale: 1.12,
+
+    scrollTrigger: {
+        trigger: "body",
+        start: "top top",
+        end: "bottom bottom",
+        scrub: 2
+    }
+
+});
+
+gsap.to(".overlay", {
+
+    opacity: .35,
+
+    scrollTrigger: {
+        trigger: "body",
+        start: "top top",
+        end: "bottom bottom",
+        scrub: 1
+    }
+
 });
 
 function initOverlayScrub() {
@@ -143,6 +281,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initOverlayScrub();
     initNavbarState();
     initActiveNavLink();
-    initMobileNav();
-    initVideoRefresh();
+    //initMobileNav();
+    //initVideoRefresh();
 });

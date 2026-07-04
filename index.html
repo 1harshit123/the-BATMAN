@@ -17,15 +17,17 @@
 <body>
 
     <!-- ============ FIXED VIDEO BACKGROUND ============ -->
-    <video class="video-bg" autoplay muted loop playsinline poster="assets/redBATMAN-poster.jpg">
+    <video class="video-bg" autoplay muted loop playsinline >
         <source src="redBATMAN.mp4" type="video/mp4">
     </video>
     <div class="overlay" id="overlay"></div>
     <div class="grain"></div>
+    <div class="cursor"></div>
+    <div class="cursor-dot"></div>
 
     <!-- ============ NAVBAR ============ -->
     <header class="navbar">
-        <a href="#hero" class="nav-logo">HNY</a>
+        <a href="#hero" class="nav-logo btn">HNY</a>
         <nav class="nav-links">
             <a href="#about" data-nav="01">About</a>
             <a href="#projects" data-nav="02">Projects</a>
@@ -59,11 +61,11 @@
         </section>
 
         <!-- ============ PAGE 2 — ABOUT ============ -->
-        <section id="about" class="page page-about" data-overlay="0.45" data-blur="3">
+        <section id="about" class="page page-about reveal" data-overlay="0.45" data-blur="3">
             <span class="page-eyebrow">01 — Who</span>
             <h2 class="page-title">Hny</h2>
             <div class="about-grid">
-                <div class="about-block">
+                <div class="about-block reveal">
                     <h3>Education</h3>
                     <p>B.Sc. Computer Science</p>
                     <p class="muted">College name · Year · Location</p>
@@ -80,7 +82,7 @@
         </section>
 
         <!-- ============ PAGE 3 — PROJECTS ============ -->
-        <section id="projects" class="page page-projects" data-overlay="0.6" data-blur="5">
+        <section id="projects" class="page page-projects reveal" data-overlay="0.6" data-blur="5">
             <span class="page-eyebrow">02 — Work</span>
             <h2 class="page-title">Projects</h2>
             <div class="project-list">
@@ -94,7 +96,7 @@
                             <span>React</span><span>FastAPI</span><span>ChromaDB</span><span>Gemini</span>
                         </div>
                     </div>
-                    <a href="#" class="project-link" aria-label="View RepoRAG">↗</a>
+                    <a href="#" class="project-link btn" aria-label="View RepoRAG">↗</a>
                 </article>
 
                 <article class="project-card">
@@ -106,7 +108,7 @@
                             <span>Tag</span><span>Tag</span>
                         </div>
                     </div>
-                    <a href="#" class="project-link" aria-label="View project">↗</a>
+                    <a href="#" class="project-link btn" aria-label="View project">↗</a>
                 </article>
 
                 <article class="project-card">
@@ -118,26 +120,26 @@
                             <span>Tag</span><span>Tag</span>
                         </div>
                     </div>
-                    <a href="#" class="project-link" aria-label="View project">↗</a>
+                    <a href="#" class="project-link btn" aria-label="View project">↗</a>
                 </article>
 
             </div>
         </section>
 
         <!-- ============ PAGE 4 — ACTIVITIES / HOBBIES ============ -->
-        <section id="activities" class="page page-activities" data-overlay="0.7" data-blur="6">
+        <section id="activities" class="page page-activities reveal" data-overlay="0.7" data-blur="6">
             <span class="page-eyebrow">03 — Beyond Code</span>
             <h2 class="page-title">Activities &amp; Hobbies</h2>
             <div class="activity-grid">
-                <div class="activity-card">
+                <div class="activity-card reveal">
                     <h3>Hobby One</h3>
                     <p>Description goes here.</p>
                 </div>
-                <div class="activity-card">
+                <div class="activity-card reveal">
                     <h3>Hobby Two</h3>
                     <p>Description goes here.</p>
                 </div>
-                <div class="activity-card">
+                <div class="activity-card reveal">
                     <h3>Hobby Three</h3>
                     <p>Description goes here.</p>
                 </div>
@@ -145,15 +147,15 @@
         </section>
 
         <!-- ============ PAGE 5 — CONTACT / SOCIALS ============ -->
-        <section id="contact" class="page page-contact" data-overlay="0.85" data-blur="10">
+        <section id="contact" class="page page-contact reveal" data-overlay="0.85" data-blur="10">
             <span class="page-eyebrow">04 — Reach</span>
             <h2 class="page-title">Let's talk</h2>
             <p class="contact-sub">Open to opportunities, collaborations, and conversations.</p>
             <div class="social-links">
-                <a href="mailto:you@example.com" class="social-link">Email</a>
-                <a href="https://github.com/" target="_blank" rel="noopener" class="social-link">GitHub</a>
-                <a href="https://linkedin.com/" target="_blank" rel="noopener" class="social-link">LinkedIn</a>
-                <a href="https://twitter.com/" target="_blank" rel="noopener" class="social-link">Twitter</a>
+                <a href="mailto:you@example.com" class="social-link reveal btn">Email</a>
+                <a href="https://github.com/" target="_blank" rel="noopener" class="social-link reveal btn">GitHub</a>
+                <a href="https://linkedin.com/" target="_blank" rel="noopener" class="social-link reveal btn">LinkedIn</a>
+                <a href="https://twitter.com/" target="_blank" rel="noopener" class="social-link reveal btn">Twitter</a>
             </div>
             <p class="footer-note">© <span id="year"></span> Hny. Built with GSAP.</p>
         </section>
