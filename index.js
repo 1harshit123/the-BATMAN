@@ -1,9 +1,10 @@
-/* ==========================================================================
-   SETUP
-   ========================================================================== */
-gsap.registerPlugin(ScrollTrigger);
 
-const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+import Lenis from "lenis";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+
+gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
 /* ==========================================================================
    RANDOM HERO QUOTE
@@ -34,20 +35,19 @@ function setYear() {
 }
 
 /* ==========================================================================
-   SMOOTH SCROLL (Lenis) — skipped entirely if reduced motion is requested
+   SMOOTH SCROLL
    ========================================================================== */
-let lenis = null;
+
+let lenis;
 
 function initSmoothScroll() {
-    if (prefersReducedMotion) return;
-
     lenis = new Lenis({
-        duration: 1.1,
+        duration: 1.2,
         smoothWheel: true,
-        smoothTouch: false // native touch scroll feels better on mobile
+        smoothTouch: false,
     });
 
-    lenis.on('scroll', ScrollTrigger.update);
+    lenis.on("scroll", ScrollTrigger.update);
 
     gsap.ticker.add((time) => {
         lenis.raf(time * 1000);
@@ -56,11 +56,27 @@ function initSmoothScroll() {
     gsap.ticker.lagSmoothing(0);
 }
 
-/* ==========================================================================
-   VIDEO OVERLAY / BLUR SCRUB
-   Reads data-overlay and data-blur off each .page section and scrubs
-   the fixed .overlay layer's darkness/blur as that section crosses center.
-   ========================================================================== */
+
+// pin shape when it reaches the center of the viewport, for 300px
+ScrollTrigger.create({
+    trigger: ".shape",
+    pin: true,
+    start: "center center",
+    end: "+=300"
+});
+
+document.querySelector("button").addEventListener("click", (e) => {
+    // scroll to the spot where the shape is in the center.
+    // parameters: element, smooth, position
+    smoother.scrollTo(".shape", true, "center center");
+
+    // or you could animate the scrollTop:
+    // gsap.to(smoother, {
+    //  scrollTop: smoother.offset(".shape", "center center"),
+    //  duration: 1
+    // });
+});
+
 function initOverlayScrub() {
     const overlay = document.getElementById('overlay');
     const pages = document.querySelectorAll('.page');
@@ -86,11 +102,6 @@ function initOverlayScrub() {
     });
 }
 
-/* ==========================================================================
-   NAVBAR STATE ON SCROLL
-   Adds a class once the user leaves the hero, in case you want a
-   background/backdrop-blur to fade in behind the nav past that point.
-   ========================================================================== */
 function initNavbarState() {
     const navbar = document.querySelector('.navbar');
     const hero = document.getElementById('hero');
@@ -104,10 +115,6 @@ function initNavbarState() {
     });
 }
 
-/* ==========================================================================
-   ACTIVE NAV LINK HIGHLIGHT
-   Toggles .active on the nav link matching the section in view.
-   ========================================================================== */
 function initActiveNavLink() {
     const sections = document.querySelectorAll('.page[id]');
     const navLinks = document.querySelectorAll('.nav-links a');
@@ -128,49 +135,7 @@ function initActiveNavLink() {
     });
 }
 
-/* ==========================================================================
-   MOBILE NAV TOGGLE
-   Toggles a .menu-open class on <body> so a mobile menu overlay
-   (add the matching CSS if you want a full-screen mobile nav) can hook into it.
-   ========================================================================== */
-function initMobileNav() {
-    const toggle = document.querySelector('.nav-toggle');
-    const navLinks = document.querySelector('.nav-links');
-    if (!toggle || !navLinks) return;
 
-    toggle.addEventListener('click', () => {
-        const isOpen = document.body.classList.toggle('menu-open');
-        toggle.setAttribute('aria-expanded', isOpen);
-    });
-
-    // close the menu whenever a link is tapped
-    navLinks.querySelectorAll('a').forEach((link) => {
-        link.addEventListener('click', () => {
-            document.body.classList.remove('menu-open');
-        });
-    });
-}
-
-/* ==========================================================================
-   VIDEO READY → REFRESH SCROLLTRIGGER
-   Section heights can shift slightly once the video's real dimensions
-   are known, so refresh ScrollTrigger's measurements once it's loaded.
-   ========================================================================== */
-function initVideoRefresh() {
-    const video = document.querySelector('.video-bg');
-    if (!video) return;
-
-    video.addEventListener('loadeddata', () => ScrollTrigger.refresh());
-
-    // autoplay can silently fail on some mobile browsers — retry on first touch
-    video.play().catch(() => {
-        document.addEventListener('touchstart', () => video.play(), { once: true });
-    });
-}
-
-/* ==========================================================================
-   INIT
-   ========================================================================== */
 document.addEventListener('DOMContentLoaded', () => {
     setRandomQuote();
     setYear();
