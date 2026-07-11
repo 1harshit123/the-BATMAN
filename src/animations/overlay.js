@@ -32,7 +32,7 @@ export function initOverlayScrub() {
         }).to(overlay, {
             backgroundColor: `rgba(5, 5, 5, ${targetOpacity})`,
             backdropFilter: `blur(${targetBlur}px)`,
-            webkitBackdropFilter: `blur(${targetBlur}px)`,
+            backdropFilter: `blur(${targetBlur}px)`,
             ease: 'none'
         });
     });
