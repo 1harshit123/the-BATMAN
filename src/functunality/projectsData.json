@@ -1,0 +1,32 @@
+[
+  {
+    "title": "RateGuard",
+    "description": "Logistics Billing Checker is an AI-powered reconciliation engine designed to eliminate overcharges and manual audits in the supply chain. By cross-referencing logistics invoices against contracted rate cards, LBC detects weight discrepancies, zone mismatches, and hidden surcharges in minutes rather than days.",
+    "github": "https://github.com/1harshit123/RateGuard",
+    "homepage": "https://ateguard-logistics-audit.vercel.app",
+    "technologies": [],
+    "language": "Python",
+    "stars": 0,
+    "forks": 0,
+    "watchers": 0,
+    "updated": "2026-07-12T18:34:01Z",
+    "image": "./assets/projects/RateGuard.png",
+    "featured": false,
+    "order": 1
+  },
+  {
+    "title": "code-explainer-RAG-system",
+    "description": null,
+    "github": "https://github.com/1harshit123/code-explainer-RAG-system",
+    "homepage": null,
+    "technologies": [],
+    "language": "Python", 
+    "stars": 0,
+    "forks": 0,
+    "watchers": 0,
+    "updated": "2026-07-02T13:39:09Z",
+    "image": "./assets/projects/code-explainer-RAG-system.png",
+    "featured": false,
+    "order": 2
+  }
+]

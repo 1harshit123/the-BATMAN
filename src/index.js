@@ -13,9 +13,11 @@ import { initOverlayScrub } from "./animations/overlay.js";
 import { initVideoAnimations } from "./animations/video.js";
 import { initVideoBlur } from "./animations/videoBlur.js";
 import { initSmoke } from "./animations/cursor.js";
+import { initSkillsAnimations } from "./animations/skills.js";
+import { renderProjects } from "./functunality/projects.js";
 
 // Register ScrollTrigger
-gsap.registerPlugin(ScrollTrigger, );
+gsap.registerPlugin(ScrollTrigger);
 
 document.addEventListener("DOMContentLoaded", () => {
     setRandomQuote();
@@ -28,7 +30,9 @@ document.addEventListener("DOMContentLoaded", () => {
     initActiveNavLink();
     initRevealAnimations();
     initProjectsAnimations();
+    initSkillsAnimations();
     initMagneticButtons();
     initOverlayScrub();
     initVideoAnimations();
+    renderProjects();
 });

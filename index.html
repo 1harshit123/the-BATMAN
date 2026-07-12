@@ -86,46 +86,95 @@
         <!-- ============ PAGE 3 — PROJECTS ============ -->
         <section id="projects" class="page page-projects reveal" data-overlay="0.6" data-blur="5">
             <h2 class="page-title">Projects</h2>
-            <div class="project-list">
-
+        
+            <div class="project-list"></div>
+        
+            <template id="project-template">
                 <article class="project-card">
-                    <span class="project-index">01</span>
+        
+                    <img class="project-image" src="" alt="Project Preview">
+        
+                    <span class="project-index"></span>
+        
                     <div class="project-info">
-                        <h3>RepoRAG</h3>
-                        <p>AI-powered codebase analysis tool — React, FastAPI, ChromaDB, Gemini.</p>
-                        <div class="project-tags">
-                            <span>React</span><span>FastAPI</span><span>ChromaDB</span><span>Gemini</span>
-                        </div>
+        
+                        <h3></h3>
+        
+                        <p></p>
+        
+                        <div class="project-tags"></div>
+        
                     </div>
-                    <a href="#" class="project-link btn" aria-label="View RepoRAG">↗</a>
+        
+                    <a href="#" class="project-link btn" target="_blank" aria-label="View Project">
+                        ↗
+                    </a>
+        
                 </article>
+            </template>
+        
+        </section>
 
-                <article class="project-card">
-                    <span class="project-index">02</span>
-                    <div class="project-info">
-                        <h3>Project Two</h3>
-                        <p>Short description of the project goes here.</p>
-                        <div class="project-tags">
-                            <span>Tag</span><span>Tag</span>
-                        </div>
+        <!-- ============ PAGE 4 — SKILLS ============ -->
+        <section id="skills" class="page page-skills reveal" data-overlay="0.7" data-blur="5">
+            <p class="skills-kicker">Loadout</p>
+            <h2 class="page-title">Arsenal</h2>
+            <div class="skills-divider"></div>
+            
+            <div class="skills-grid">
+                <div class="skills-category">
+                    <p class="skills-cat-label">Frontend</p>
+                    <div class="skills-row" data-lit="5">
+                        <p class="skills-name">React</p>
+                        <div class="skills-gauge"></div>
                     </div>
-                    <a href="#" class="project-link btn" aria-label="View project">↗</a>
-                </article>
-
-                <article class="project-card">
-                    <span class="project-index">03</span>
-                    <div class="project-info">
-                        <h3>Project Three</h3>
-                        <p>Short description of the project goes here.</p>
-                        <div class="project-tags">
-                            <span>Tag</span><span>Tag</span>
-                        </div>
+                    <div class="skills-row" data-lit="5">
+                        <p class="skills-name">GSAP / ScrollTrigger</p>
+                        <div class="skills-gauge"></div>
                     </div>
-                    <a href="#" class="project-link btn" aria-label="View project">↗</a>
-                </article>
-
+                    <div class="skills-row" data-lit="4">
+                        <p class="skills-name">WebGL / Three.js</p>
+                        <div class="skills-gauge"></div>
+                    </div>
+                </div>
+             
+                <div class="skills-category">
+                    <p class="skills-cat-label">Backend + AI</p>
+                    <div class="skills-row" data-lit="5">
+                        <p class="skills-name">FastAPI / Python</p>
+                        <div class="skills-gauge"></div>
+                    </div>
+                    <div class="skills-row" data-lit="4">
+                        <p class="skills-name">LLM orchestration</p>
+                        <div class="skills-gauge"></div>
+                    </div>
+                    <div class="skills-row" data-lit="4">
+                        <p class="skills-name">Vector search (ChromaDB)</p>
+                        <div class="skills-gauge"></div>
+                    </div>
+                </div>
+             
+                <div class="skills-category">
+                    <p class="skills-cat-label">Tooling</p>
+                    <div class="skills-row" data-lit="5">
+                        <p class="skills-name">Git</p>
+                        <div class="skills-gauge"></div>
+                    </div>
+                    <div class="skills-row" data-lit="4">
+                        <p class="skills-name">n8n automation</p>
+                        <div class="skills-gauge"></div>
+                    </div>
+                    <div class="skills-row" data-lit="3">
+                        <p class="skills-name">Docker</p>
+                        <div class="skills-gauge"></div>
+                    </div>
+                </div>
+             
+                <div class="skills-scanline"></div>
             </div>
         </section>
+
+
 
         <!-- ============ PAGE 4 — ACTIVITIES / HOBBIES ============ -->
         <section id="activities" class="page page-activities reveal" data-overlay="0.7" data-blur="6">
