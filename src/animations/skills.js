@@ -2,89 +2,91 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export function initSkillsAnimations() {
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
- 
-    // Build the 5-segment gauge for each skill row dynamically
-    document.querySelectorAll('.skills-row').forEach(row => {
-        const lit = parseInt(row.dataset.lit, 10);
-        const gauge = row.querySelector('.skills-gauge');
-        if (!gauge) return;
-        gauge.innerHTML = '';
-        for (let i = 0; i < 5; i++) {
-            const seg = document.createElement('div');
-            seg.className = 'skills-seg';
-            const fill = document.createElement('span');
-            fill.className = 'skills-fill';
-            seg.appendChild(fill);
-            gauge.appendChild(seg);
+    const bubbles = document.querySelectorAll('.skill-bubble');
+    const ring = document.querySelector('.orbit-ring');
+    const batmanLogo = document.querySelector('.batman-center');
+
+    if (!ring || bubbles.length === 0) return;
+
+    const totalBubbles = bubbles.length;
+
+    // 1. Dynamic positioning function
+    function positionBubbles() {
+        // Calculate radius on the fly based on current CSS width
+        const radius = ring.offsetWidth / 2;
+
+        bubbles.forEach((bubble, i) => {
+            const angle = (i / totalBubbles) * (Math.PI * 2);
+            const xPos = Math.cos(angle) * radius;
+            const yPos = Math.sin(angle) * radius;
+
+            gsap.set(bubble, {
+                x: xPos,
+                y: yPos,
+                xPercent: -50,
+                yPercent: -50
+            });
+        });
+    }
+
+    // Call immediately to set initial positions
+    positionBubbles();
+
+    // Recalculate if the user resizes their browser
+    window.addEventListener('resize', positionBubbles);
+
+    // 2. The Ferris Wheel Animation
+    const ringSpin = gsap.to(ring, {
+        rotation: 360,
+        duration: 40, // Slow, dramatic spin
+        ease: "none",
+        repeat: -1,
+        paused: true
+    });
+
+    const bubbleSpin = gsap.to(bubbles, {
+        rotation: -360, // Exact inverse to keep logos upright
+        duration: 40,
+        ease: "none",
+        repeat: -1,
+        paused: true
+    });
+
+    // 3. Reveal Animation on Scroll
+    ScrollTrigger.create({
+        trigger: '.orbit-wrapper',
+        start: 'top 75%',
+        onEnter: () => {
+            // Pop the bubbles in
+            gsap.from(bubbles, {
+                scale: 0,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.1,
+                ease: "back.out(1.5)"
+            });
+
+            // Fade in the glowing Bat-Signal
+            if (batmanLogo) {
+                gsap.fromTo(batmanLogo,
+                    { opacity: 0, scale: 0.5, filter: "drop-shadow(0 0 0px rgba(255,255,255,0))" },
+                    { opacity: 1, scale: 1, filter: "drop-shadow(0 0 30px rgba(255,255,255,0.6))", duration: 1.5, ease: "power2.out", delay: 0.5 }
+                );
+            }
+
+            ringSpin.play();
+            bubbleSpin.play();
         }
     });
- 
-    if (reduceMotion) {
-        // Skip motion entirely, just show final state
-        document.querySelectorAll('.skills-category').forEach(cat => { 
-            cat.style.opacity = '1'; 
-            cat.style.transform = 'none'; 
-        });
-        document.querySelectorAll('.skills-row').forEach(row => {
-            const lit = parseInt(row.dataset.lit, 10);
-            row.querySelectorAll('.skills-fill').forEach((f, idx) => { 
-                if (idx < lit) f.style.transform = 'scaleX(1)'; 
-            });
-        });
-    } else {
-        // Category columns rise in with a stagger
-        document.querySelectorAll('.skills-category').forEach((cat, i) => {
-            gsap.to(cat, {
-                opacity: 1, 
-                y: 0, 
-                duration: 0.6, 
-                ease: 'power2.out', 
-                delay: i * 0.12,
-                scrollTrigger: { 
-                    trigger: cat, 
-                    start: 'top 82%' 
-                }
-            });
-        });
- 
-        // Each gauge powers on with a stepped flicker, staggered per segment
-        document.querySelectorAll('.skills-row').forEach(row => {
-            const lit = parseInt(row.dataset.lit, 10);
-            const fills = row.querySelectorAll('.skills-fill');
-            ScrollTrigger.create({
-                trigger: row,
-                start: 'top 88%',
-                once: true,
-                onEnter: () => {
-                    fills.forEach((f, idx) => {
-                        if (idx < lit) {
-                            gsap.to(f, { 
-                                scaleX: 1, 
-                                duration: 0.22, 
-                                ease: 'steps(4)', 
-                                delay: 0.25 + idx * 0.07 
-                            });
-                        }
-                    });
-                }
-            });
-        });
- 
-        // One-time scanline sweep down the grid on reveal
-        gsap.fromTo('.skills-scanline',
-            { top: '0%', opacity: 0.7 },
-            {
-                top: '100%', 
-                opacity: 0, 
-                duration: 1.1, 
-                ease: 'power1.in',
-                scrollTrigger: { 
-                    trigger: '.skills-grid', 
-                    start: 'top 75%', 
-                    once: true 
-                }
-            }
-        );
-    }
+
+    // Pause on hover so users can easily read/inspect the skills
+    ring.addEventListener("mouseenter", () => {
+        ringSpin.pause();
+        bubbleSpin.pause();
+    });
+
+    ring.addEventListener("mouseleave", () => {
+        ringSpin.play();
+        bubbleSpin.play();
+    });
 }
